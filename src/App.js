@@ -1,10 +1,10 @@
 import React from 'react'
-import HomePage from './pages/user/home-page'
+import CustomRoutes from './routers/custom-routes'
 
 const App = () => {
   return (
     <div>
-      <HomePage/>
+      <CustomRoutes/>
     </div>
   )
 }
