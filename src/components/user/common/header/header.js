@@ -8,7 +8,7 @@ import "./header.scss";
 
 const Header = () => {
   return (
-    <Container>
+    <Container className="p-0 fixed-top">
       <div className="header">
         <div className="logo">
           <img src={logo} alt={settings.siteName} className="img-fluid" />
