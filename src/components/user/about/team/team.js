@@ -14,7 +14,7 @@ const Team = () => {
         title2="Team"
         desc="We are here to meet your transportation needs by suggesting vip cars which are eligible to your business."
       />
-      <Spacer/>
+      <Spacer />
       <Container>
         <Row className="g-5">
           {team.map((member) => (
