@@ -4,10 +4,12 @@ import Spacer from "../../../common/spacer/spacer";
 import ContactInfo from "../contact-info/contact-info";
 import * as Yup from "yup";
 import { useFormik } from "formik";
+import { sendMessage } from "../../../../api/contact-service";
+import "./contact-form.scss"
+import { toast } from "../../../../helpers/functions/swal";
 
 const ContactForm = () => {
   const [loading, setLoading] = useState(false);
-  //formik
 
   const initialValues = {
     name: "",
@@ -16,27 +18,37 @@ const ContactForm = () => {
     body: "",
   };
 
-  //3 adet bilgi veriyoruz
-
   const validationSchema = Yup.object({
     name: Yup.string().required("Enter your name"),
     email: Yup.string()
-      .email("Enter a valid e-mail")
-      .required("Enter you e-mail"),
+      .email("Enter a valid email")
+      .required("Enter your email"),
     subject: Yup.string()
-      .min(5, "The subject should be at least 5 chars")
       .max(50, "The subject should be the most 50 chars")
+      .min(5, "The subject should be at least 5 chars")
       .required("Enter a subject"),
-    body: Yup.string()
+      body: Yup.string()
+      .max(200, "The message should the most 200 chars")
       .min(20, "The message should be at least 20 chars")
-      .max(200, "The message should the 50 chars")
       .required("Enter a message"),
   });
 
-  const onSubmit = (values) => {
-
+  const onSubmit = async (values) => {
+    setLoading(true);
+    toast(" Your work has been sent successfully","success")
     
+    try {
+      await sendMessage(values);
+      formik.resetForm();
+      
 
+
+    } catch (err) {
+      alert(err.response.data.message);
+    }
+    finally{
+      setLoading(false);
+    }
   };
 
   const formik = useFormik({
@@ -46,8 +58,8 @@ const ContactForm = () => {
   });
 
   return (
-    <Container>
-      <Row>
+    <Container className="contact-form">
+      <Row className="gy-5">
         <Col md={6}>
           <p>
             Looking for a small or medium economy car rental or something a
@@ -55,10 +67,9 @@ const ContactForm = () => {
             and comfortable rental cars to choose from. Browse our fleet range
             now and rent a car online today.
           </p>
-          <Spacer />
+          <Spacer height={30} />
           <ContactInfo />
         </Col>
-
         <Col md={6}>
           <Form noValidate onSubmit={formik.handleSubmit}>
             <Form.Group className="mb-3">
@@ -73,8 +84,9 @@ const ContactForm = () => {
                 {formik.errors.name}
               </Form.Control.Feedback>
             </Form.Group>
+
             <Form.Group className="mb-3">
-              <Form.Label>E-Mail</Form.Label>
+              <Form.Label>Email</Form.Label>
               <Form.Control
                 type="email"
                 {...formik.getFieldProps("email")}
@@ -85,6 +97,7 @@ const ContactForm = () => {
                 {formik.errors.email}
               </Form.Control.Feedback>
             </Form.Group>
+
             <Form.Group className="mb-3">
               <Form.Label>Subject</Form.Label>
               <Form.Control
@@ -97,6 +110,7 @@ const ContactForm = () => {
                 {formik.errors.subject}
               </Form.Control.Feedback>
             </Form.Group>
+
             <Form.Group className="mb-3">
               <Form.Label>Message</Form.Label>
               <Form.Control
@@ -112,8 +126,8 @@ const ContactForm = () => {
               </Form.Control.Feedback>
             </Form.Group>
 
-            <Button variant="primary" type="submit" disabled={!(formik.dirty && formik.isValid)||loading}>
-              {loading && <Spinner animation="border" size="sm"/>}Send Message
+            <Button variant="primary" type="submit" disabled={!(formik.dirty && formik.isValid) || loading}>
+              { loading && <Spinner animation="border" size="sm"/>} Send Message
             </Button>
           </Form>
         </Col>

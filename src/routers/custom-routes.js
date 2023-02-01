@@ -1,5 +1,6 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import ScrollToTop from "../components/common/scroll-to-top/scroll-to-top";
 import AuthPage from "../pages/common/auth-page";
 import NotFoundPage from "../pages/common/not-found-page";
 import UnauthorizedPage from "../pages/common/unauthorized-page";
@@ -16,7 +17,9 @@ import VehiclesPage from "../pages/user/vehicles-page";
 const CustomRoutes = () => {
   return (
     <BrowserRouter>
+    <ScrollToTop/>
       <Routes>
+        
         <Route path="/">
           <Route index element={<HomePage />} />
           <Route path="about" element={<AboutPage />} />

@@ -5,6 +5,6 @@ const API_URL = settings.apiURL;
 
 
 
-export const sendMessage = (message)=>{
-   return axios.post(`${API_URL}/contactmessage/visitors`, message)
+export const getVehicles = (message)=>{
+   return axios.get(`${API_URL}/contactmessage/visitors`, message)
 }
