@@ -5,6 +5,7 @@ import { RiGasStationFill, RiCarLine } from "react-icons/ri";
 import { MdOutlineAirlineSeatReclineExtra } from "react-icons/md";
 import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import "./vehicle-card.scss"
 const VehicleCard = (props) => {
   const { id, image, model, transmission, fuelType, doors, seats } = props;
   return (
@@ -20,8 +21,8 @@ const VehicleCard = (props) => {
       <div className="details">
         <div><GiJoystick/> {transmission}</div>
         <div><RiGasStationFill/> {fuelType}</div>
-        <div><RiCarLine/> {doors}</div>
-        <div><MdOutlineAirlineSeatReclineExtra/> {seats}</div>
+        <div><RiCarLine/> {doors} doors</div>
+        <div><MdOutlineAirlineSeatReclineExtra/> {seats} seats</div>
       </div>
       <Button variant="secondary" as={Link} to={`/vehicles/${id}`}>Rent Now</Button>
     </div>
