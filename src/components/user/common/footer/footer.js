@@ -1,6 +1,6 @@
 import React from "react";
 import { Col, Container, Row } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import "./footer.scss";
 import logo from "../../../../assets/img/logo/logo.png";
 import { settings } from "../../../../helpers/settings";
@@ -12,7 +12,9 @@ import {
   MdOutlinePrivacyTip,
 } from "react-icons/md";
 import ContactInfo from "../../contact/contact-info/contact-info";
+
 const Footer = () => {
+  const { pathname } = useLocation();
   return (
     <footer>
       <Container>
@@ -30,27 +32,27 @@ const Footer = () => {
             <h2>Quick Links</h2>
             <ul>
               <li>
-                <Link to="/">
+                <Link to="/" className={pathname==="/" ? "active" : ""}>
                   <MdOutlineHome /> Home
                 </Link>
               </li>
               <li>
-                <Link to="/vehicles">
+                <Link to="/vehicles" className={pathname.startsWith("/vehicles") ? "active":""}>
                   <MdDirectionsCar /> Vehicles
                 </Link>
               </li>
               <li>
-                <Link to="/about">
+                <Link to="/about" className={pathname==="/about"? "active":""}>
                   <MdInfoOutline /> About Us
                 </Link>
               </li>
               <li>
-                <Link to="/contact">
+                <Link to="/contact" className={pathname==="/contact" ? "active":""}>
                   <MdOutlineHeadphones /> Contact Us
                 </Link>
               </li>
               <li>
-                <Link to="/privacy-policy">
+                <Link to="/privacy-policy" className={pathname==="/privacy-policy" ? "active":""}>
                   <MdOutlinePrivacyTip /> Privacy Policy
                 </Link>
               </li>
@@ -73,4 +75,5 @@ const Footer = () => {
     </footer>
   );
 };
+
 export default Footer;

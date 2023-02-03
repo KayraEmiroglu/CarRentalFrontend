@@ -1,0 +1,10 @@
+.vehicles{
+    .pagination{
+        width: auto;
+
+        .active.disabled{
+            background-color: red;
+        }
+
+    }
+}
